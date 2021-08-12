@@ -2,6 +2,8 @@ package com.algaworks.algalog.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,16 +43,17 @@ public class ClienteController {
 				.orElse(ResponseEntity.notFound().build());
 
 	}
+	
 	@PostMapping //post pra criar user
 	@ResponseStatus(HttpStatus.CREATED)//status de criação qnd cria
 	//@RequestBody corpo da requisição transformar oq foi passado em um objeto java
-     public Cliente adicionar(@RequestBody Cliente cliente) {
+     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
     	 
     	 return clienteRepository.save(cliente);
      } 
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizar(@PathVariable Long id,
+	public ResponseEntity<Cliente> atualizar(@Valid @PathVariable Long id,
 			@RequestBody Cliente cliente) {
 		
 		//ta negando se o cliente não existe
@@ -65,8 +68,8 @@ public class ClienteController {
 		return ResponseEntity.ok(cliente);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> remover(Long id) {
+	@DeleteMapping("/{id}")//é utilizado quando o valor da variável é passada diretamente na URL id
+	public ResponseEntity<Void> remover(@PathVariable Long id) {
 		
 		//se o cliente que tá exluindo n existir notfound
 		if(!clienteRepository.existsById(id)) {
