@@ -13,8 +13,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.algaworks.algalog.domain.exception.NegocioException;
 
 import lombok.AllArgsConstructor;
 
@@ -47,4 +50,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		return handleExceptionInternal(ex, problema, headers, status, request);
 	}
+	
+	@ExceptionHandler(NegocioException.class)//método por trata essa exception
+	public ResponseEntity<Object> handleNegocio(NegocioException ex, WebRequest request) {
+		
+		HttpStatus status = HttpStatus.BAD_REQUEST; //status 400
+		
+		Problema problema = new Problema();
+		problema.setStatus(status.value()); //retorna o código de status http
+		problema.setDataHora(LocalDateTime.now()); //na hora que ocorreu 
+		problema.setTitulo(ex.getMessage()); //a mensagem passa na regra de negócio
+		
+		//o corpo passa o problema e o header http status e a requisição
+		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);	
+}
 }
