@@ -12,10 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import domain.ValidationGroups;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,14 +36,20 @@ public class Entrega {
 	@EqualsAndHashCode.Include //apenas o id
 	private Long id;
 	
+	@Valid //validar o objeto do cliente tb em cascata
+	@NotNull
+	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class) //converte
 	@ManyToOne //muitos pedidos pra um cliente 
 	private Cliente cliente;
 	
 	//abstrair os dados do distinatario para uma outra classe porem mapeando para
 	//tabela da entidade entrega
+	@NotNull
 	@Embedded 
+	@Valid
 	private Destinatario destinatario;
 	
+	@NotNull
 	private BigDecimal taxa;
 	
 	@Enumerated(EnumType.STRING) //tipo da numeração é string
