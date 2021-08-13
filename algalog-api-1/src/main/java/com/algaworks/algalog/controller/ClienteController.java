@@ -33,7 +33,7 @@ public class ClienteController {
 
 	@GetMapping() // mapeamento /clientes
 	public List<Cliente> listar() {
-
+ 
 		return clienteRepository.findAll();
 
 	}
