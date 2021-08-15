@@ -11,6 +11,7 @@ import com.algaworks.algalog.domain.model.Entrega;
 
 import lombok.AllArgsConstructor;
 import model.EntregaModel;
+import model.input.EntregaInput;
 
 
 
@@ -32,5 +33,9 @@ public class EntregaAssembler {
 		return entregas.stream()
 				.map(this::toModel)
 				.collect(Collectors.toList()); //list de um entregaModel
+	}
+	
+	public Entrega toEntity(EntregaInput entregaInput) {
+		return modelMapper.map(entregaInput, Entrega.class);
 	}
 }

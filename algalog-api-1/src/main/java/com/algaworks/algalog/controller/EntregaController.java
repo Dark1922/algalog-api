@@ -20,6 +20,7 @@ import com.algaworks.algalog.domain.service.SolicitacaoEntregaService;
 
 import lombok.AllArgsConstructor;
 import model.EntregaModel;
+import model.input.EntregaInput;
 
 @AllArgsConstructor
 @RestController
@@ -32,9 +33,11 @@ public class EntregaController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public EntregaModel solicitar(@Valid @RequestBody Entrega entrega) {
+	public EntregaModel solicitar(@Valid @RequestBody EntregaInput entregaInput) {
 		
-		Entrega entregaSocicitada = solicitacaoEntregaService.solicitar(entrega);
+		Entrega novaEntrega = entregaAssembler.toEntity(entregaInput);
+		
+		Entrega entregaSocicitada = solicitacaoEntregaService.solicitar(novaEntrega);
 		return entregaAssembler.toModel(entregaSocicitada);
 	}
 	
