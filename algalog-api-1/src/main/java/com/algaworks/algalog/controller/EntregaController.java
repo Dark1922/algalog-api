@@ -19,8 +19,8 @@ import com.algaworks.algalog.domain.repository.EntregaRepository;
 import com.algaworks.algalog.domain.service.SolicitacaoEntregaService;
 
 import lombok.AllArgsConstructor;
-import model.EntregaModel;
 import model.input.EntregaInput;
+import model.representation.EntregaModel;
 
 @AllArgsConstructor
 @RestController
@@ -37,8 +37,8 @@ public class EntregaController {
 		
 		Entrega novaEntrega = entregaAssembler.toEntity(entregaInput);
 		
-		Entrega entregaSocicitada = solicitacaoEntregaService.solicitar(novaEntrega);
-		return entregaAssembler.toModel(entregaSocicitada);
+		Entrega entregaSolicitada = solicitacaoEntregaService.solicitar(novaEntrega);
+		return entregaAssembler.toModel(entregaSolicitada);
 	}
 	
 	@GetMapping

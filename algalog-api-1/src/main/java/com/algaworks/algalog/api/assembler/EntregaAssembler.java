@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import com.algaworks.algalog.domain.model.Entrega;
 
 import lombok.AllArgsConstructor;
-import model.EntregaModel;
 import model.input.EntregaInput;
+import model.representation.EntregaModel;
 
 
 

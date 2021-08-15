@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algalog.api.assembler.ClienteAssembler;
 import com.algaworks.algalog.domain.model.Cliente;
+import com.algaworks.algalog.domain.model.Entrega;
 import com.algaworks.algalog.domain.repository.ClienteRepository;
 import com.algaworks.algalog.domain.service.CatalogoClienteService;
 
 import lombok.AllArgsConstructor;
+import model.representation.ClienteCrudRepresentation;
 
 //gera um construtor com todas propriedades que tem em nossa clase no caso clientrepository
 @AllArgsConstructor
@@ -30,18 +33,19 @@ public class ClienteController {
 
 	private ClienteRepository clienteRepository;
 	private CatalogoClienteService catalogoClienteService;
+	private ClienteAssembler clienteAssembler;
 
 	@GetMapping() // mapeamento /clientes
-	public List<Cliente> listar() {
+	public List<ClienteCrudRepresentation> listar() {
   
-		return clienteRepository.findAll();
+		return clienteAssembler.toCollectionModel(clienteRepository.findAll());
 
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<ClienteCrudRepresentation> buscarPorId(@PathVariable Long id) {
 
-		return clienteRepository.findById(id).map(ResponseEntity::ok)
+		return clienteRepository.findById(id).map(cliente -> ResponseEntity.ok(clienteAssembler.toModel(cliente)))
 				.orElse(ResponseEntity.notFound().build());
 
 	}
@@ -49,9 +53,11 @@ public class ClienteController {
 	@PostMapping //post pra criar user
 	@ResponseStatus(HttpStatus.CREATED)//status de criação qnd cria
 	//@RequestBody corpo da requisição transformar oq foi passado em um objeto java
-     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-    	 
-		return catalogoClienteService.salvar(cliente);
+     public ClienteCrudRepresentation adicionar(@Valid @RequestBody ClienteCrudRepresentation clienteRepresentation) {
+    	
+		Cliente novoCliente = clienteAssembler.toEntity(clienteRepresentation);
+		Cliente clienteRegraNegocio = catalogoClienteService.salvar(novoCliente);
+		return clienteAssembler.toModel(clienteRegraNegocio);
      } 
 	
 	

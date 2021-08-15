@@ -1,4 +1,4 @@
-package model;
+package model.representation;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
