@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.algaworks.algalog.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algalog.domain.exception.NegocioException;
 
 import lombok.AllArgsConstructor;
@@ -55,6 +56,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleNegocio(NegocioException ex, WebRequest request) {
 		
 		HttpStatus status = HttpStatus.BAD_REQUEST; //status 400
+		
+		Problema problema = new Problema();
+		problema.setStatus(status.value()); //retorna o código de status http
+		problema.setDataHora(OffsetDateTime.now()); //na hora que ocorreu 
+		problema.setTitulo(ex.getMessage()); //a mensagem passa na regra de negócio
+		
+		//o corpo passa o problema e o header http status e a requisição
+		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);	
+}
+	
+	@ExceptionHandler(EntidadeNaoEncontradaException.class)//método por trata essa exception
+	public ResponseEntity<Object> handleEntidadeNaoEncontrada
+	(EntidadeNaoEncontradaException ex, WebRequest request) {
+		
+		HttpStatus status = HttpStatus.NOT_FOUND; //status 404
 		
 		Problema problema = new Problema();
 		problema.setStatus(status.value()); //retorna o código de status http
