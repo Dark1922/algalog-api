@@ -1,6 +1,5 @@
 package com.algaworks.algalog.api.exceptionhandler;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import com.algaworks.algalog.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-@ControllerAdvice //propositor de tratar os erro global
+@ControllerAdvice //propositor de tratar os erros global
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	private MessageSource messageSource;
@@ -46,7 +45,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		Problema problema = new Problema();
 		problema.setStatus(status.value()); //retorna o código de status http
 		problema.setDataHora(OffsetDateTime.now()); //na hora que ocorreu 
-		problema.setTitulo("Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente");
+		problema.setTitulo("Um ou mais campos estão inválidos. Faça o preenchimento corretamente e tente novamente");
 		problema.setCampos(campos);
 		
 		return handleExceptionInternal(ex, problema, headers, status, request);
