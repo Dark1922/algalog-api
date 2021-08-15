@@ -13,6 +13,7 @@
 
 ![Untitled](https://user-images.githubusercontent.com/48605830/129493673-faafeb94-a827-4730-9b26-bf985d6a498f.png)
 
+![algalog](https://user-images.githubusercontent.com/48605830/129494384-79aa1632-a6b9-49cf-a581-69661098a006.gif)
 
 <hr />
 
@@ -28,9 +29,14 @@
 <dd>Ultilizada para fazer validações no sistema.</dd>
 
 <dt><strong>Fly Way</strong></dt>
-<dd>Ultilizado parar criar as tabelas do mysql com seu padrão , ultilizando linguagem sql.</dd>
+<dd>Ultilizado para criar as tabelas do mysql com seu padrão , ultilizando a linguagem sql.</dd>
 
+  <dt><strong>ModelMapper Core</strong></dt>
+<dd>usado para implementar as entidades das model de representação.</dd>
+  
 </dl>
+
+<hr>
 
 ### 📑 Conteúdos 
 
