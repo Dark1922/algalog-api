@@ -9,7 +9,7 @@
 
 <hr />
 
-### 💻 Diagrama ultilizadado para construit  o sistema foi / Demonstração da aplicação pelo Postman
+### 💻 Diagrama ultilizadado para construir  o sistema  / Demonstração da aplicação pelo Postman
 
 ![Untitled](https://user-images.githubusercontent.com/48605830/129493673-faafeb94-a827-4730-9b26-bf985d6a498f.png)
 
