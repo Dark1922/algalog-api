@@ -9,10 +9,10 @@
 
 <hr />
 
-<h3 align="center"> 💻 Diagrama ultilizadado para construir  o sistema  / Demonstração da aplicação pelo Postman </h3> <br>
+<h2 align="center"> 💻 Diagrama ultilizadado para construir  o sistema  / Demonstração da aplicação pelo Postman </h2> <br>
 
 ![Untitled](https://user-images.githubusercontent.com/48605830/129493673-faafeb94-a827-4730-9b26-bf985d6a498f.png)
-
+<hr />
 ![algalog](https://user-images.githubusercontent.com/48605830/129494384-79aa1632-a6b9-49cf-a581-69661098a006.gif)
 
 <hr />
